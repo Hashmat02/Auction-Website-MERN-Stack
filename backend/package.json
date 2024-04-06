@@ -1,0 +1,22 @@
+{
+  "name": "pa3-mern",
+  "version": "1.0.0",
+  "description": "MERN assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "mongoose": "^8.2.4",
+    "nodemon": "^3.1.0",
+    "socket.io": "^4.7.5"
+  }
+}

@@ -1,0 +1,76 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  height: 100%;
+  /* Ensure full height */
+}
+
+ul,
+li {
+  margin: 0;
+  /* Resetting default margins */
+  padding: 0;
+  /* Resetting default paddings */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  list-style-type: none;
+  border-bottom: 2px solid #eaeaea;
+  background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  /* Optionally make navbar fixed at the top */
+  top: 0;
+  /* Align to the top */
+  left: 0;
+  /* Align to the left */
+  right: 0;
+  /* Stretch across the width */
+}
+
+.sub-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+li {
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+li:hover {
+  color: #007bff;
+}
+
+.logout {
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+  color: #ffffff;
+}
+
+.logout {
+  background-color: #dc3545;
+}
+
+.logout:hover {
+  background-color: #292929;
+}
+
+img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}

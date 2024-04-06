@@ -1,0 +1,111 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* A more modern font */
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  /* A softer background color */
+  color: #333;
+  /* Darker text for better readability */
+}
+
+.container {
+  max-width: 600px;
+  margin: 80px auto;
+  /* Centers the container with more vertical space */
+  padding: 40px;
+  /* More padding for a spacious layout */
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  /* Lighter border color */
+  border-radius: 12px;
+  /* Softer rounded corners */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  /* Subtler shadow for depth */
+}
+
+h1 {
+  color: #007bff;
+  /* A modern, vibrant color */
+  font-size: 24px;
+  /* Adjusted size for emphasis */
+  text-align: center;
+  /* Center-align the title for focus */
+  margin-bottom: 30px;
+  /* More space after the title */
+}
+
+form {
+  display: grid;
+  gap: 20px;
+  /* Uniform spacing between form elements */
+}
+
+label {
+  font-size: 16px;
+  /* Slightly larger label text */
+  color: #555;
+  /* Soft color for the labels */
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+input[type="datetime-local"],
+input[type="file"] {
+  padding: 12px;
+  /* Increased padding for better interaction */
+  border: 2px solid #eaeaea;
+  /* Softer border */
+  border-radius: 8px;
+  /* More pronounced rounded edges */
+  background-color: #f9f9f9;
+  /* Slight background color for input fields */
+  transition: border-color 0.3s;
+  /* Smooth transition for focus */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+input[type="datetime-local"]:focus,
+input[type="file"]:focus {
+  border-color: #007bff;
+  /* Highlight focus with a vibrant color */
+}
+
+textarea {
+  resize: vertical;
+  /* Allows vertical resizing only */
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  /* Cleaner look without border */
+  border-radius: 8px;
+  background-color: #007bff;
+  /* Consistent vibrant button color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  /* Smooth background transition */
+}
+
+button:hover {
+  background-color: #0056b3;
+  /* Darker shade on hover */
+}
+
+/* Enhances the file input for a more unified appearance */
+input[type="file"] {
+  cursor: pointer;
+}
+
+/* Additional styles for better responsiveness on smaller screens */
+@media (max-width: 768px) {
+  .container {
+    margin: 40px 20px;
+    padding: 20px;
+  }
+}

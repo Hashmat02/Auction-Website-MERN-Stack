@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* More modern font */
+  background-color: #f4f4f4;
+  /* Softer background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  width: 350px;
+  /* Slightly larger width for a more spacious layout */
+  padding: 40px;
+  /* Increased padding for better spacing */
+  background-color: #ffffff;
+  border-radius: 10px;
+  /* More pronounced rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Softened shadow for depth */
+}
+
+.login-form h2 {
+  margin-bottom: 30px;
+  /* More space under the title */
+  color: #333;
+  font-size: 24px;
+  /* Larger font size for the title */
+}
+
+.form-group {
+  margin-bottom: 20px;
+  /* Increased space between form fields */
+}
+
+.form-group label {
+  font-weight: normal;
+  /* Less bold for a lighter feel */
+  color: #555;
+  /* Darker gray for labels */
+  margin-bottom: 10px;
+  /* Increased space between label and input */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  /* More padding for a better typing experience */
+  border: 1px solid #ddd;
+  /* Lighter border for the inputs */
+  border-radius: 5px;
+  /* Subtly rounded corners for inputs */
+  background-color: #f9f9f9;
+  /* Slightly off-white background for the inputs */
+}
+
+.form-group button {
+  width: 100%;
+  padding: 12px;
+  /* More padding for a bigger, easier-to-click button */
+  background-color: #008CBA;
+  /* A calm, inviting color for the button */
+  color: #ffffff;
+  font-size: 16px;
+  /* Larger font size for button text */
+  border-radius: 5px;
+  /* Consistency with input field rounding */
+  border: none;
+  /* Clean look without border */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  /* Smooth transition for the button */
+}
+
+.form-group button:hover {
+  background-color: #007B9E;
+  /* Slightly darker shade on hover */
+}
+
+.form-group .signup-link {
+  text-align: center;
+  margin-top: 20px;
+  /* More space above the link to the login page */
+}
+
+.form-group .signup-link a {
+  color: #008CBA;
+  /* Matching the button color for consistency */
+  text-decoration: underline;
+  /* Clear indication that it's a clickable link */
+}
+
+.form-group .signup-link a:hover {
+  color: #007B9E;
+  /* Darker shade for visual feedback on hover */
+}

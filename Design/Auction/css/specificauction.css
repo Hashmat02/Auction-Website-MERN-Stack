@@ -1,0 +1,110 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Using a more modern font */
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f7;
+  /* A softer background for a refined look */
+}
+
+.auction-details {
+  max-width: 800px;
+  margin: 40px auto;
+  /* More vertical space for better focus on the content */
+  padding: 20px;
+  background-color: #ffffff;
+  border: none;
+  /* Removing the border for a cleaner look */
+  border-radius: 10px;
+  /* Softer rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  /* A more pronounced shadow for depth */
+  display: flex;
+  flex-wrap: wrap;
+  /* Allows items to wrap on smaller screens */
+}
+
+.auction-image {
+  flex: 1 1 300px;
+  /* Allows image area to shrink but not smaller than 300px */
+  margin-right: 20px;
+}
+
+.auction-image img {
+  width: 100%;
+  /* Ensures the image is responsive */
+  height: auto;
+  border-radius: 10px;
+  /* More pronounced rounded corners for the image */
+}
+
+.auction-info {
+  flex: 2 1 300px;
+  /* Allows text area to grow but not smaller than 300px */
+}
+
+.auction-title,
+.description,
+p {
+  color: #333;
+  /* Using a darker shade for better readability */
+}
+
+.auction-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  /* More space below the title */
+  font-size: 24px;
+  /* Larger title for emphasis */
+}
+
+.description {
+  margin-bottom: 15px;
+  /* More space between paragraphs for readability */
+}
+
+.bid-form {
+  margin-top: 30px;
+  /* More space above the bidding form */
+}
+
+.bid-form label {
+  font-weight: normal;
+  /* Less emphasis on the label for a cleaner look */
+  margin-bottom: 10px;
+  /* Increased space above the input */
+}
+
+.bid-form input[type="number"] {
+  padding: 10px;
+  /* More padding for a better typing experience */
+  width: auto;
+  /* Auto width to fit content */
+  border: 2px solid #ddd;
+  /* Slightly thicker border */
+  border-radius: 10px;
+  /* Matching rounded corners */
+  margin-right: 10px;
+  /* Space between input and button */
+}
+
+.bid-form button {
+  padding: 10px 20px;
+  /* Increased padding for a larger click area */
+  border: none;
+  /* Cleaner look without border */
+  border-radius: 10px;
+  /* Consistent rounded edges */
+  background-color: #007bff;
+  /* A more vibrant button color */
+  color: white;
+  /* White text for contrast */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  /* Smooth transition for interaction */
+}
+
+.bid-form button:hover {
+  background-color: #0056b3;
+  /* Slightly darker on hover */
+}
