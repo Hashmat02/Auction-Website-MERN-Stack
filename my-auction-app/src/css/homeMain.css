@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    padding: 20px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 62%,
+      rgba(9, 121, 24, 0.2346989821319153) 100%
+    );
+  }
+  
+  h1 {
+    color: limegreen;
+    font-size: 60px; /* Adjusted for better readability */
+    margin: 0;
+  }
+  
+  .subtitle {
+    font-size: 30px;
+    margin: 20px 0; /* Added some vertical space around the subtitle */
+  }
+  
+  .join {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 40px;
+    background-color: mediumseagreen;
+    color: white;
+    cursor: pointer; /* Make sure it's clear it's clickable */
+  }
+  
+  .join:hover {
+    background-color: #3cb371; /* Slightly lighter on hover for feedback */
+  }
+  
