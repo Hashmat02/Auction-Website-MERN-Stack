@@ -1,6 +1,6 @@
 // routes/auctionRoutes.js
 import express from 'express';
-import { createAuction, searchAuctions, getAuctionById, placeBid, updateWinner} from '../controllers/auction.js';
+import { createAuction, searchAuctions, getAuctionById, placeBid, updateWinner, closeAuction} from '../controllers/auction.js';
 
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.get('/', searchAuctions);
 router.get('/:id', getAuctionById);
 router.post('/place-bid', placeBid); 
 router.post('/:id/winner', updateWinner);
+router.post('/auctions/:id/close', closeAuction);
 
 export default router;

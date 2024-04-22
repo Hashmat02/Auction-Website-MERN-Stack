@@ -5,9 +5,9 @@ body {
   background: linear-gradient(to right, #f0f6f7, #ffffff);
 }
 
-.container {
+.profie-container {
   max-width: 800px;
-  margin: 50px auto;
+  margin: 100px auto; /* Adjust margin to create space between navbar and content */
   padding: 20px;
   border-radius: 10px;
   background-color: #fff;
@@ -17,9 +17,11 @@ body {
 .profile-info {
   display: flex;
   align-items: center;
+  margin-top: 100px; /* Increase margin-top to start from a bit lower */
   margin-bottom: 40px;
   padding: 0 20px; /* Add horizontal padding */
 }
+
 
 .profile-image img {
   width: 100px;

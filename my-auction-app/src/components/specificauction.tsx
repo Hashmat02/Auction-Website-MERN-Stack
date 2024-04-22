@@ -1,8 +1,6 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import io from 'socket.io-client'; 
-// import css from './specificauction.module.css';
+import io from 'socket.io-client';
 
 interface Auction {
     id: string;
@@ -12,7 +10,8 @@ interface Auction {
     currentPrice: number;
     startTime: string;
     endTime: string;
-    creatorUsername: string;  // Add this to track the creator
+    creatorUsername: string;
+    isClosed: boolean;  // Property to track if the auction is closed
 }
 
 const socket = io('http://localhost:8080');
@@ -21,7 +20,6 @@ const SpecificAuction = () => {
     const { id } = useParams<{ id: string }>();
     const [auction, setAuction] = useState<Auction | null>(null);
     const [bid, setBid] = useState('');
-    const [auctionEnded, setAuctionEnded] = useState(false);
 
     useEffect(() => {
         const fetchAuction = async () => {
@@ -35,10 +33,12 @@ const SpecificAuction = () => {
                     throw new Error(`Failed to fetch auction: ${response.status}`);
                 }
                 const data = await response.json();
-                setAuction(data);
+                setAuction({ ...data, isClosed: new Date(data.endTime) < new Date() });
             } catch (error) {
                 console.error('Error fetching auction:', error);
             }
+
+            
         };
         fetchAuction();
         socket.emit('joinAuction', id);
@@ -53,7 +53,34 @@ const SpecificAuction = () => {
         };
     }, [id]);
 
+    useEffect(() => {
+        const intervalId = setInterval(async () => {
+            if (auction && new Date(auction.endTime) < new Date()) {
+                setAuction(prevAuction => prevAuction ? { ...prevAuction, isClosed: true } : null);
+                clearInterval(intervalId);
+                // Call the API to update the auction status in the database
+                try {
+                    const response = await fetch(`http://localhost:8080/api/auctions/${id}/close`, {
+                        method: 'POST'
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to close auction on the server');
+                    }
+                } catch (error) {
+                    console.error('Error closing auction:', error);
+                }
+            }
+        }, 1000);  // Checking every second for demo purposes
+    
+        return () => clearInterval(intervalId);
+    }, [auction, id]);
+    
+
     const placeBid = async () => {
+        if (auction?.isClosed) {
+            alert("This auction has ended. No further bids can be placed.");
+            return;
+        }
         const username = localStorage.getItem('username');
         if (username === auction?.creatorUsername) {
             alert("You can't bid on your own auction.");
@@ -70,9 +97,8 @@ const SpecificAuction = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ auctionId: id, newBid: parseFloat(bid) })
             });
-            const result = await response.json();
             if (!response.ok) {
-                throw new Error(result.message || "Failed to place bid");
+                throw new Error(await response.json().then(data => data.message || "Failed to place bid"));
             }
             alert('Bid placed successfully');
             setBid('');
@@ -83,62 +109,6 @@ const SpecificAuction = () => {
         }
     };
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (auction && new Date(auction.endTime) < new Date()) {
-                if (id) {
-                    determineWinner(id); // Pass the id parameter to determineWinner
-                    clearInterval(intervalId); // Stop the interval after determining the winner
-                } else {
-                    console.error("Auction ID is undefined.");
-                }
-            }
-        }, 40000);
-    
-        return () => clearInterval(intervalId);
-    }, [auction, id]); // Ensure id is included as a dependency
-    
-     
-
-
-    const determineWinner = async (auctionId:string) => {
-        try {
-            if (!auction) {
-                console.error('Auction data is missing');
-                return;
-            }
-    
-            if (!auction.currentPrice || auction.currentPrice <= auction.startingPrice) {
-                // No bids were placed, so there's no winner
-                alert('No bids were placed for this auction.');
-                return;
-            }
-    
-            // The highest bidder is the winner
-            const winnerUsername = auction.creatorUsername;
-            alert(`The winner of the auction is: ${winnerUsername}`);
-    
-            // Update the backend with the winner
-            const response = await fetch(`http://localhost:8080/api/auctions/${auctionId}/winner`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ winnerUsername })
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to update winner');
-            }
-            setAuctionEnded(true);
-    
-            // Here you can update the database or take other necessary actions based on the winner
-        } catch (error) {
-            console.error('Error determining winner:', error);
-            alert('Error determining winner');
-        }
-    };
-    
-    
-
     if (!auction) return <p>Loading auction details...</p>;
     return (
         <div>
@@ -148,10 +118,9 @@ const SpecificAuction = () => {
             <p>Current Price: ${auction.currentPrice}</p>
             <p>Starting Time: {auction.startTime}</p>
             <p>Ending Time: {auction.endTime}</p>
-            {auctionEnded ? (
+            {auction.isClosed ? (
                 <div>
-                    <p>Auction ended. Winner: {auction.creatorUsername}</p>
-                    <p>Bidding closed.</p>
+                    <p>Auction ended. No further bids can be placed.</p>
                 </div>
             ) : (
                 <div>
@@ -159,9 +128,9 @@ const SpecificAuction = () => {
                         type="number"
                         value={bid}
                         onChange={(e) => setBid(e.target.value)}
-                        disabled={auctionEnded} // Disable input when auction has ended
+                        disabled={auction.isClosed}
                     />
-                    <button onClick={placeBid} disabled={auctionEnded}>Place Bid</button>
+                    <button onClick={placeBid} disabled={auction.isClosed}>Place Bid</button>
                 </div>
             )}
         </div>
@@ -169,4 +138,3 @@ const SpecificAuction = () => {
 };
 
 export default SpecificAuction;
-

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export const connect = async () => {
     const uri = 'mongodb+srv://25100148:AuctionApp@cluster0.frmflxq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Directly insert the MongoDB URI here
-
+    //    const uri = 'mongodb+srv://25100148:APexam123@cluster0.expyh5q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
     try {
         await mongoose.connect(uri, {
             useNewUrlParser: true,

@@ -11,7 +11,8 @@ interface Auction {
     currentPrice: number;
     imgUrl:string,
     startTime: Date,
-    endTime: Date
+    endTime: Date,
+    status: string,
 
 }
 
@@ -53,40 +54,9 @@ const ProfilePage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    // return (
-    //     <div className="container">
-    //         <div className="profile-info">
-    //             <div className="profile-image">
-    //                 <img src={userData.profileImage} alt="Profile" />
-    //             </div>
-    //             <div className="user-details">
-    //                 <h2>{userData.name}</h2>
-    //                 <p>{userData.username}</p>
-    //                 <p>Items Owned: {userData.itemsOwned}</p>
-    //             </div>
-    //         </div>
-    //         <div className="auction-list">
-    //             {userData.createdAuctions.length > 0 ? (
-    //                 userData.createdAuctions.map((auction: Auction) => (
-    //                     <div key={auction._id}>
-    //                         <h4>{auction.title}</h4>
-    //                         <p>{auction.description}</p>
-    //                     </div>
-    //                 ))
-    //             ) : <p>No auctions created.</p>}
-    //         </div>
-    //         <div className="profile-actions">
-    //             <Link to="/createauction">
-    //                 <button>Create Auction</button>
-    //             </Link>
-    //             <Link to="/change-password">
-    //                 <button>Change Password</button>
-    //             </Link>
-    //         </div>
-    //     </div>
-    // );
+  
     return (
-        <div className="container">
+        <div className="profile-container">
             <div className="profile-info">
                 <div className="profile-image">
                     <img src={userData.profileImage} alt="Profile" />

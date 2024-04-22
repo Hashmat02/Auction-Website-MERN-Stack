@@ -11,6 +11,7 @@ const auctionSchema = new mongoose.Schema({
     startingPrice: { type: Number, required: true },
     creatorUsername: { type: String, required: true },
     winnerUsername: { type: String },
+    status: { type: String, default: 'active' } 
 });
 
 const Auction = mongoose.model('Auction', auctionSchema);

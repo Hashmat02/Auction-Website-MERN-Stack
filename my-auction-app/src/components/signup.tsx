@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import '../css/signup.css';
+import { useNavigate } from 'react-router-dom';
 
 const Signup: React.FC = () => {
     const [formData, setFormData] = useState({ username: '', password: '', confirmPassword: '' });
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -36,6 +38,7 @@ const Signup: React.FC = () => {
                 return;
             }
             alert('Account created successfully');
+            navigate('/login');
         } catch (error) {
             console.error('Signup failed:', error);
             setError('An error occurred while creating the account');

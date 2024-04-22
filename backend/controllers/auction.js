@@ -118,6 +118,38 @@ export const updateWinner = async (req, res) => {
     }
 };
 
+export const closeAuction = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const auction = await Auction.findById(id);
+        if (!auction) {
+            return res.status(404).json({ message: "Auction not found" });
+        }
+
+        // Check if the auction has already been closed
+        if (auction.status === 'closed') {
+            return res.status(400).json({ message: "This auction is already closed" });
+        }
+
+        // Update auction status to closed
+        auction.status = 'closed';
+
+        // Optional: Check for winner logic here if applicable
+        // For example, determine if the currentPrice exceeds the startingPrice
+        if (auction.currentPrice > auction.startingPrice) {
+            // Logic to determine the winner if needed
+            // For now, you might not implement it or it could be managed separately
+        }
+
+        await auction.save();
+        res.json({ message: "Auction closed successfully", auction });
+    } catch (error) {
+        res.status(500).json({ message: "Error closing auction", error: error.message });
+    }
+};
+
+
 
 
 

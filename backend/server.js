@@ -1,3 +1,78 @@
+
+import dotenv from 'dotenv';
+import http from 'http';
+import express from 'express';
+import { Server as SocketIOServer } from 'socket.io';
+import cors from 'cors';
+import { connect as connectDB } from './utils/db.js';
+import userRoutes from './routes/user.js';
+import auctionRoutes from './routes/auction.js';
+
+// Initialize configuration from .env file
+dotenv.config({ path: "./utils/config.env" });
+
+const app = express();
+
+// Apply middleware
+app.use(cors({
+    origin: "http://localhost:3000", // Adjust as per your frontend's URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
+
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/auctions', auctionRoutes);
+app.use('/api', auctionRoutes);
+
+// Database connection
+connectDB().then(() => {
+    console.log("Connected to MongoDB");
+}).catch(error => {
+    console.error("Failed to connect to MongoDB:", error);
+});
+
+// HTTP server
+const server = http.createServer(app);
+
+// Socket.io configuration
+const io = new SocketIOServer(server, {
+    cors: {
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"],
+      credentials: true
+    }
+});
+
+io.on("connection", (socket) => {
+  console.log("USER CONNECTED:", socket.id);
+
+  socket.on('disconnect', () => {
+      console.log("USER DISCONNECTED:", socket.id);
+  });
+
+  // Listen for join room
+  socket.on('joinAuction', (auctionId) => {
+      console.log(`User ${socket.id} joined auction ${auctionId}`);
+      socket.join(auctionId);
+  });
+});
+
+export { io };
+
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+
+
+
+
+
+
 // import dotenv from 'dotenv';
 // dotenv.config({ path: "./utils/config.env" }); // Adjust path as necessary
 
@@ -91,72 +166,4 @@
 //   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 //   allowedHeaders: ['Content-Type', 'Authorization'] // Explicitly specify headers allowed
 // })); 
-
-
-import dotenv from 'dotenv';
-import http from 'http';
-import express from 'express';
-import { Server as SocketIOServer } from 'socket.io';
-import cors from 'cors';
-import { connect as connectDB } from './utils/db.js';
-import userRoutes from './routes/user.js';
-import auctionRoutes from './routes/auction.js';
-
-// Initialize configuration from .env file
-dotenv.config({ path: "./utils/config.env" });
-
-const app = express();
-
-// Apply middleware
-app.use(cors({
-    origin: "http://localhost:3000", // Adjust as per your frontend's URL
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(express.json());
-
-// Routes
-app.use('/api/users', userRoutes);
-app.use('/api/auctions', auctionRoutes);
-
-// Database connection
-connectDB().then(() => {
-    console.log("Connected to MongoDB");
-}).catch(error => {
-    console.error("Failed to connect to MongoDB:", error);
-});
-
-// HTTP server
-const server = http.createServer(app);
-
-// Socket.io configuration
-const io = new SocketIOServer(server, {
-    cors: {
-      origin: "http://localhost:3000",
-      methods: ["GET", "POST"],
-      credentials: true
-    }
-});
-
-io.on("connection", (socket) => {
-  console.log("USER CONNECTED:", socket.id);
-
-  socket.on('disconnect', () => {
-      console.log("USER DISCONNECTED:", socket.id);
-  });
-
-  // Listen for join room
-  socket.on('joinAuction', (auctionId) => {
-      console.log(`User ${socket.id} joined auction ${auctionId}`);
-      socket.join(auctionId);
-  });
-});
-
-export { io };
-
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
 

@@ -8,6 +8,7 @@ interface Auction {
   imageUrl?: string; // Assuming imageUrl is optional
   description: string;
   currentPrice: number;
+  status: string;
 }
 
 
@@ -54,7 +55,7 @@ const BrowseAuctions: React.FC = () => {
 
 
   return (
-    <div className="container">
+    <div className="brcontainer">
       <div className="search-container">
         <input
           type="text"
@@ -78,6 +79,7 @@ const BrowseAuctions: React.FC = () => {
               <h2 className="auction-title">{auction.title}</h2>
               <p className="description">{auction.description}</p>
               <p>Current Price: ${auction.currentPrice}</p>
+              <p className="status">{auction.status}</p>
             </div>
           </div>
         ))

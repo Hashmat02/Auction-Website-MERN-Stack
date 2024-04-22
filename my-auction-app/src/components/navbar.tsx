@@ -7,12 +7,16 @@ const Navbar: React.FC = () => {
   return (
     <div className="nav-container">
       <div className="nav-sub-container">
-        <Link className="nav-item" to="/">Home</Link>
-        <Link className="nav-item" to="/browse">Browse</Link>
+        <Link className="nav-item" to="/home">Home</Link>
+        {/* <Link className="nav-item" to="/browse">Browse</Link> */}
       </div>
       <div className="nav-sub-container">
-        <img className="nav-user-img" src="../assets/user.png" alt="User" />
-        <div className="nav-logout">Logout</div>
+        <Link className="nav-item" to="/browse">Browse</Link>
+      </div>  
+      <div className="nav-sub-container">
+        {/* <img className="nav-user-img" src="../assets/user.png" alt="User" /> */}
+        {/* <div className="nav-logout">Logout</div> */}
+        <Link className="nav-logout" to="/login">Logout</Link>
       </div>
     </div>
   );
